@@ -1,0 +1,41 @@
+# Example pg-mcp configuration.
+# Passwords are never written here — only references resolved by a secrets provider.
+
+audit:
+  log_path: ./audit.log
+
+envs:
+  local:
+    host: localhost
+    port: 5432
+    database: appdb
+    user: mcp_readonly
+    secrets:
+      provider: env
+      password_key: LOCAL_PG_PASSWORD
+    # protected: false
+
+  staging:
+    host: staging-db.internal
+    port: 5432
+    database: appdb
+    user: mcp_readonly
+    protected: true
+    statement_timeout_ms: 15000
+    max_rows: 5000
+    secrets:
+      provider: env
+      password_key: STAGING_PG_PASSWORD
+
+  prod:
+    host: prod-db.internal
+    port: 5432
+    database: appdb
+    user: mcp_readonly
+    protected: true
+    # allow_unconfirmed: false
+    secrets:
+      provider: gcp
+      project: my-gcp-project
+      path: prod-pg-password  # resolves versions/latest; or a fully-qualified resource name
+      password_key: unused  # not used by the gcp provider

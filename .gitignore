@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+/.codex
+/.megamemory
+/.scratch
+/AGENTS.md
+/CLAUDE.md
+/CONTEXT.md
+/docs

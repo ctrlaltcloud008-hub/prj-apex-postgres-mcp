@@ -1,0 +1,17 @@
+# Config that points the MCP at the docker-compose sample database.
+#   just sample-up
+#   just run-stdio -- --config config.sample.yaml
+# (the read-only password lives in .env as SAMPLE_PG_PASSWORD — see .env.sample)
+
+audit:
+  log_path: ./audit.log
+
+envs:
+  sample:
+    host: localhost
+    port: 5432
+    database: appdb
+    user: mcp_readonly
+    secrets:
+      provider: env
+      password_key: SAMPLE_PG_PASSWORD

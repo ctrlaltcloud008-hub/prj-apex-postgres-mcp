@@ -1,0 +1,15 @@
+# Config for running the MCP container attached to the sample DB's docker network.
+# Only difference from config.sample.yaml: host is the compose service name `sample-db`
+# (inside a container, `localhost` is the app container itself, not the database).
+audit:
+  log_path: /tmp/audit.log
+
+envs:
+  sample:
+    host: sample-db
+    port: 5432
+    database: appdb
+    user: mcp_readonly
+    secrets:
+      provider: env
+      password_key: SAMPLE_PG_PASSWORD

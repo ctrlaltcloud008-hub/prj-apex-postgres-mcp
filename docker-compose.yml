@@ -1,0 +1,20 @@
+# Sample Postgres for testing the pg-mcp server locally.
+#   just sample-up     # start + seed
+#   just sample-down   # stop and wipe
+services:
+  sample-db:
+    image: postgres:16-alpine
+    container_name: pg-mcp-sample-db
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sample/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d appdb"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
